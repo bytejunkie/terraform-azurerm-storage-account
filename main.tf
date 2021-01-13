@@ -1,18 +1,15 @@
-resource "azurerm_storage_account" "example" {
-  name                = "storageaccountname"
-  resource_group_name = azurerm_resource_group.example.name
+resource "azurerm_storage_account" "this_storage_account" {
+  name                = join("", var.name_strings)
+  location            = var.location
+  resource_group_name = var.resource_group_name
 
-  location                 = azurerm_resource_group.example.location
-  account_tier             = "Standard"
-  account_replication_type = "LRS"
+  account_tier             = var.account_tier
+  account_replication_type = var.account_replication_type
 
-  network_rules {
-    default_action             = "Deny"
-    ip_rules                   = ["100.0.0.1"]
-    virtual_network_subnet_ids = [azurerm_subnet.example.id]
-  }
-
-  tags = {
-    environment = "staging"
-  }
+  tags = merge({
+    Module-Name = "Azure Storage Account"
+    Author      = "bytejunkie - matt@bytejunkie.dev"
+    },
+    var.tags
+  )
 }

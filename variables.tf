@@ -46,8 +46,30 @@ variable "account_replication_type" {
   }
 }
 
+variable "enable_https_traffic_only" {
+  description = "(Optional) Boolean flag which forces HTTPS if enabled, see here for more information. Defaults to true."
+  type        = string
+  default     = "true"
+
+  validation {
+    condition     = var.enable_https_traffic_only == "true" || var.enable_https_traffic_only == "false"
+    error_message = "This is a Boolean."
+  }
+}
+
 variable "tags" {
   type        = map(any)
   description = "(Optional) A map of tags to assign to the resource."
   default     = {}
+}
+
+variable "allow_blob_public_access" {
+  description = "Allow or disallow public access to all blobs or containers in the storage account."
+  type        = string
+  default     = "false"
+
+  validation {
+    condition     = var.allow_blob_public_access == "true" || var.allow_blob_public_access == "false"
+    error_message = "This is a boolean."
+  }
 }

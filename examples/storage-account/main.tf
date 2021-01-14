@@ -34,6 +34,9 @@ module "storage_account" {
   resource_group_name = module.resourcegroup.resource_group_name
   location            = "west europe"
 
+  allow_blob_public_access  = "true"
+  enable_https_traffic_only = "true"
+
   depends_on = [
     module.resourcegroup
   ]

@@ -1,5 +1,5 @@
 resource "azurerm_storage_account" "this_storage_account" {
-  name                = join("", var.name_strings)
+  name                = lower(join("", var.name_strings))
   location            = var.location
   resource_group_name = var.resource_group_name
 
